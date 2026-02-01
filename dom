@@ -1,0 +1,18 @@
+{
+  "url": "https://accounts.youtube.com/RotateCookiesPage?origin=https://www.youtube.com&yt_pid=1",
+  "timestamp": 1769970155187,
+  "title": "",
+  "html": "<html><head></head><body><script src=\"https://www.gstatic.com/_/mss/boq-identity/_/js/k=boq-identity.IdentityRotateCookiesHttp.ru.f1l4BGdYomc.2018.O/am=AAQD/d=1/rs=AOaEmlGgi6JKsnmKj-zpJxEcBtS6MnE3ow/m=hfcr\" nonce=\"\"></script><script nonce=\"\">init('-7955411313128768780',  0.0 ,  1.0 ,  0.0 ,  600.0 )</script></body></html>",
+  "scripts": [
+    {
+      "src": "https://www.gstatic.com/_/mss/boq-identity/_/js/k=boq-identity.IdentityRotateCookiesHttp.ru.f1l4BGdYomc.2018.O/am=AAQD/d=1/rs=AOaEmlGgi6JKsnmKj-zpJxEcBtS6MnE3ow/m=hfcr",
+      "isExternal": true
+    },
+    {
+      "src": "",
+      "isExternal": false
+    }
+  ],
+  "forms": [],
+  "iframes": []
+}
