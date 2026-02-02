@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YouTube Ultimate Exploits v2.0</title>
+  <link rel="stylesheet" href="assets/styles.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', 'Roboto', sans-serif;
+    }
+    
+    body {
+      width: 900px;
+      height: 700px;
+      background: #0a0a0a;
+      color: #00ff00;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .container {
+      display: flex;
+      height: 100%;
+    }
+    
+    /* Сайдбар */
+    .sidebar {
+      width: 250px;
+      background: #111;
+      border-right: 2px solid #00ff00;
+      padding: 20px;
+      overflow-y: auto;
+    }
+    
+    .logo {
+      text-align: center;
+      margin-bottom: 30px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #333;
+    }
+    
+    .logo h1 {
+      font-size: 20px;
+      color: #00ff00;
+      text-shadow: 0 0 10px #00ff00;
+      margin-bottom: 5px;
+    }
+    
+    .logo .version {
+      color: #888;
+      font-size: 12px;
+    }
+    
+    .status-indicator {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin: 15px 0;
+      padding: 10px;
+      background: rgba(0, 255, 0, 0.1);
+      border-radius: 5px;
+    }
+    
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #00ff00;
+      animation: pulse 2s infinite;
+    }
+    
+    .category {
+      margin-bottom: 25px;
+    }
+    
+    .category h3 {
+      color: #00ff00;
+      font-size: 14px;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .exploit-list {
+      list-style: none;
+    }
+    
+    .exploit-item {
+      padding: 10px 15px;
+      margin: 5px 0;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s;
+      border-left: 3px solid transparent;
+    }
+    
+    .exploit-item:hover {
+      background: rgba(0, 255, 0, 0.1);
+      border-left-color: #00ff00;
+    }
+    
+    .exploit-item.active {
+      background: rgba(0, 255, 0, 0.15);
+      border-left-color: #00ff00;
+    }
+    
+    /* Основной контент */
+    .main-content {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      background: #0a0a0a;
+    }
+    
+    .exploit-header {
+      margin-bottom: 30px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #333;
+    }
+    
+    .exploit-header h2 {
+      font-size: 24px;
+      color: #00ff00;
+      margin-bottom: 10px;
+    }
+    
+    .exploit-desc {
+      color: #aaa;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    
+    .controls {
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 10px;
+      padding: 25px;
+      margin-bottom: 25px;
+      border: 1px solid #333;
+    }
+    
+    .control-group {
+      margin-bottom: 20px;
+    }
+    
+    .control-group label {
+      display: block;
+      color: #00ff00;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+    
+    .control-group input,
+    .control-group select,
+    .control-group textarea {
+      width: 100%;
+      padding: 12px 15px;
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid #333;
+      border-radius: 5px;
+      color: #fff;
+      font-size: 14px;
+    }
+    
+    .control-group textarea {
+      min-height: 100px;
+      resize: vertical;
+      font-family: monospace;
+    }
+    
+    .buttons {
+      display: flex;
+      gap: 15px;
+      margin-top: 25px;
+    }
+    
+    .btn {
+      padding: 12px 25px;
+      border: none;
+      border-radius: 5px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(45deg, #00ff00, #00cc00);
+      color: #000;
+    }
+    
+    .btn-primary:hover {
+      background: linear-gradient(45deg, #00cc00, #00ff00);
+      box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+    }
+    
+    .btn-secondary {
+      background: #333;
+      color: #fff;
+    }
+    
+    .btn-secondary:hover {
+      background: #444;
+    }
+    
+    .btn-danger {
+      background: linear-gradient(45deg, #ff0000, #cc0000);
+      color: #fff;
+    }
+    
+    .btn-danger:hover {
+      background: linear-gradient(45deg, #cc0000, #ff0000);
+    }
+    
+    .results {
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 10px;
+      padding: 25px;
+      border: 1px solid #333;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    
+    .results h3 {
+      color: #00ff00;
+      margin-bottom: 15px;
+    }
+    
+    .result-output {
+      background: rgba(0, 0, 0, 0.5);
+      padding: 15px;
+      border-radius: 5px;
+      font-family: monospace;
+      font-size: 12px;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+    
+    .terminal {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 150px;
+      background: #000;
+      border-top: 2px solid #00ff00;
+      padding: 15px;
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      overflow-y: auto;
+    }
+    
+    .terminal-line {
+      margin-bottom: 3px;
+    }
+    
+    .terminal-line.success {
+      color: #00ff00;
+    }
+    
+    .terminal-line.error {
+      color: #ff0000;
+    }
+    
+    .terminal-line.info {
+      color: #00aaff;
+    }
+    
+    /* Анимации */
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    
+    @keyframes glow {
+      0%, 100% { text-shadow: 0 0 5px #00ff00; }
+      50% { text-shadow: 0 0 20px #00ff00; }
+    }
+    
+    /* Прогресс бар */
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: #333;
+      border-radius: 4px;
+      margin: 15px 0;
+      overflow: hidden;
+    }
+    
+    .progress {
+      height: 100%;
+      background: linear-gradient(90deg, #00ff00, #00cc00);
+      width: 0%;
+      transition: width 0.5s ease;
+    }
+    
+    /* Стили для конкретных эксплойтов */
+    .exploit-specific {
+      display: none;
+    }
+    
+    .exploit-specific.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Сайдбар -->
+    <div class="sidebar">
+      <div class="logo">
+        <h1>YOUTUBE EXPLOITS v2.0</h1>
+        <div class="version">ANTI-DOT SYSTEM</div>
+      </div>
+      
+      <div class="status-indicator">
+        <div class="status-dot"></div>
+        <span>СИСТЕМА АКТИВНА</span>
+      </div>
+      
+      <div class="category">
+        <h3>📊 СТАТИСТИКА И ДАННЫЕ</h3>
+        <ul class="exploit-list">
+          <li class="exploit-item active" data-exploit="video_stats">Полная статистика видео</li>
+          <li class="exploit-item" data-exploit="watchtime">Watchtime эксплойт</li>
+          <li class="exploit-item" data-exploit="channel_analyzer">Анализ канала</li>
+          <li class="exploit-item" data-exploit="api_interceptor">Перехват API</li>
+        </ul>
+      </div>
+      
+      <div class="category">
+        <h3>⚡ МАНИПУЛЯЦИИ</h3>
+        <ul class="exploit-list">
+          <li class="exploit-item" data-exploit="view_bot">Накрутка просмотров</li>
+          <li class="exploit-item" data-exploit="recommendation_killer">Убийство рекомендаций</li>
+          <li class="exploit-item" data-exploit="subscription_exploit">Эксплойт подписок</li>
+          <li class="exploit-item" data-exploit="comment_bot">Комментарии бот</li>
+        </ul>
+      </div>
+      
+      <div class="category">
+        <h3>🔧 СИСТЕМНЫЕ ЭКСПЛОЙТЫ</h3>
+        <ul class="exploit-list">
+          <li class="exploit-item" data-exploit="upload_exploit">Эксплойт загрузки</li>
+          <li class="exploit-item" data-exploit="adblock_bypass">Обход рекламы</li>
+          <li class="exploit-item" data-exploit="video_downloader">Скачивание видео</li>
+          <li class="exploit-item" data-exploit="live_stream_exploit">Эксплойт стримов</li>
+        </ul>
+      </div>
+      
+      <div class="category">
+        <h3>🛡️ ОБХОД ОГРАНИЧЕНИЙ</h3>
+        <ul class="exploit-list">
+          <li class="exploit-item" data-exploit="age_restriction_bypass">Обход возрастных ограничений</li>
+          <li class="exploit-item" data-exploit="monetization_bypass">Обход монетизации</li>
+          <li class="exploit-item" data-exploit="cpn_generator">Генератор CPN</li>
+          <li class="exploit-item" data-exploit="session_hijack">Хайджек сессии</li>
+        </ul>
+      </div>
+      
+      <div class="category">
+        <h3>⚙️ УПРАВЛЕНИЕ</h3>
+        <div class="buttons" style="margin-top: 10px;">
+          <button class="btn btn-secondary" id="clearAll">Очистить все</button>
+          <button class="btn btn-primary" id="downloadData">Скачать данные</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Основной контент -->
+    <div class="main-content">
+      <div class="exploit-header">
+        <h2 id="exploitTitle">Полная статистика видео</h2>
+        <p class="exploit-desc" id="exploitDesc">
+          Получение всей статистики видео, доступной автору в YouTube Studio
+        </p>
+      </div>
+      
+      <div class="controls">
+        <div class="control-group">
+          <label for="videoUrl">URL видео:</label>
+          <input type="text" id="videoUrl" placeholder="https://www.youtube.com/watch?v=..." value="">
+        </div>
+        
+        <div class="control-group">
+          <label for="extractionDepth">Глубина извлечения:</label>
+          <select id="extractionDepth">
+            <option value="basic">Базовая статистика</option>
+            <option value="advanced">Расширенная (все данные)</option>
+            <option value="deep">Глубокая (включая скрытые метрики)</option>
+            <option value="full">Полная (все данные + анализ)</option>
+          </select>
+        </div>
+        
+        <div class="progress-bar">
+          <div class="progress" id="progressBar"></div>
+        </div>
+        
+        <div class="buttons">
+          <button class="btn btn-primary" id="executeBtn">Запустить эксплойт</button>
+          <button class="btn btn-secondary" id="stopBtn">Остановить</button>
+          <button class="btn btn-danger" id="resetBtn">Сбросить</button>
+        </div>
+      </div>
+      
+      <div class="results">
+        <h3>Результаты:</h3>
+        <div class="result-output" id="resultOutput">
+          Ожидание запуска эксплойта...
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Терминал -->
+  <div class="terminal" id="terminal">
+    <div class="terminal-line success">[SYSTEM] YouTube Ultimate Exploits v2.0 инициализирован</div>
+    <div class="terminal-line info">[INFO] Анализ DOM структуры завершен</div>
+    <div class="terminal-line info">[INFO] Обнаружены уязвимости: IDOR, Session Hijacking, API Exploits</div>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>

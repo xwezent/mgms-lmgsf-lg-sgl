@@ -1,0 +1,80 @@
+{
+  "manifest_version": 3,
+  "name": "YouTube Ultimate Exploits v2.0",
+  "version": "2.0.0",
+  "description": "Мощные эксплойты для YouTube на основе реальных уязвимостей",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "webRequest",
+    "webRequestAuthProvider",
+    "storage",
+    "declarativeNetRequest",
+    "declarativeNetRequestWithHostAccess",
+    "cookies",
+    "downloads",
+    "unlimitedStorage"
+  ],
+  "host_permissions": [
+    "*://*.youtube.com/*",
+    "*://*.googlevideo.com/*",
+    "*://*.google.com/*",
+    "*://*.ggpht.com/*",
+    "*://*.youtube-nocookie.com/*",
+    "*://*.googleapis.com/*",
+    "*://*.googleusercontent.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "YouTube Exploits v2.0",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://www.youtube.com/*",
+        "*://m.youtube.com/*",
+        "*://studio.youtube.com/*",
+        "*://music.youtube.com/*"
+      ],
+      "js": [
+        "content.js",
+        "assets/injector.js"
+      ],
+      "css": ["assets/styles.css"],
+      "run_at": "document_start",
+      "all_frames": true
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "exploits/*.js",
+        "assets/*.js",
+        "assets/*.css",
+        "lib/*.js"
+      ],
+      "matches": ["*://*.youtube.com/*"]
+    }
+  ],
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "ruleset1",
+        "enabled": true,
+        "path": "rules.json"
+      }
+    ]
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
+  }
+}
